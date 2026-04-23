@@ -1,0 +1,33 @@
+---
+- name: Konfigurasi web server sederhana
+  hosts: webservers
+  become: true
+
+  tasks:
+    - name: Update package index
+      ansible.builtin.apt:
+        update_cache: true
+
+    - name: Install Nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+
+    - name: Pastikan service Nginx aktif
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Tulis halaman index sederhana
+      ansible.builtin.copy:
+        dest: /var/www/html/index.html
+        content: |
+          <html>
+            <body>
+              <h1>Server berhasil dikonfigurasi oleh Ansible</h1>
+            </body>
+          </html>
+        owner: root
+        group: root
+        mode: "0644"
