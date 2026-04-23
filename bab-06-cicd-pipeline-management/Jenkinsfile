@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        APP_NAME = "pal-demo-app"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Mengambil source code dari repository...'
+                checkout scm
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Menjalankan proses build...'
+                sh 'echo "Simulasi build selesai"'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Menjalankan automated test...'
+                sh 'echo "Simulasi test selesai"'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                echo 'Membuat artifact atau image...'
+                sh 'echo "Simulasi packaging selesai"'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                echo 'Melakukan deployment ke environment target...'
+                sh 'echo "Simulasi deploy selesai"'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline berhasil dijalankan.'
+        }
+        failure {
+            echo 'Pipeline gagal. Perlu pemeriksaan lebih lanjut.'
+        }
+        always {
+            echo 'Pipeline selesai dieksekusi.'
+        }
+    }
+}
